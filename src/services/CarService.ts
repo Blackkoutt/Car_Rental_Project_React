@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { baseUrl } from '../environment/environment';
+import CarData from '../models/car-data';
 
 class CarService {
     private api: AxiosInstance;
@@ -37,9 +38,9 @@ class CarService {
           throw error;
         }
     }
-    async updateCar(car:any) {
+    async updateCar(car:CarData) {
         try {
-          const response = await this.api.put(`${this.url}/${car.id}`, car);
+          const response = await this.api.put(`${this.url}/${car.Id}`, car);
           return response.data;
         } catch (error) {
           console.error('Błąd przy wysyłaniu żądania PUT:', error);
