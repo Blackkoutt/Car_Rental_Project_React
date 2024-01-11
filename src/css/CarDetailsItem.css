@@ -1,0 +1,12 @@
+.car-detail-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.detail-label {
+    font-weight: bold;
+    margin-right: 10px;
+}

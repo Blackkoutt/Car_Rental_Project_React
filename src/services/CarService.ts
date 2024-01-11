@@ -20,7 +20,7 @@ class CarService {
         }
     }
     // tutaj zmiana potem na CarData
-    async postCar(car:any) {
+    async postCar(car:CarData) {
         try {
           const response = await this.api.post(this.url, car);
           return response.data;

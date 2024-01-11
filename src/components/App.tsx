@@ -1,6 +1,9 @@
 import React from 'react';
 import '../css/App.css';
 import CarList from './CarList'
+import NotFound from './NotFound'
+import AddCar from './AddCar'
+import { BrowserRouter as Router, Route,Routes,Link, BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
@@ -12,8 +15,8 @@ function App() {
           </div>
           <nav>
             <ul className="nav-list">
-                <li><a href="#">Strona główna</a></li>
-                <li><a href="#">Dodaj pojazd</a></li>
+                <li><Link to="/">Strona główna</Link></li>
+                <li><Link to="/add">Dodaj pojazd</Link></li>
                 <li><a href="#">Wypożyczenia</a></li>
               </ul>
           </nav>
@@ -33,7 +36,12 @@ function App() {
               </div>
           </section>
           <section id="cars">
-            <CarList/>
+          
+            <Routes>
+              <Route path="/" element={<CarList/>} />
+              <Route path="/add" element={<AddCar/>} />
+              <Route Component={NotFound} />
+            </Routes>
           </section>
         </article>
       </main>

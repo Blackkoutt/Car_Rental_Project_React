@@ -6,7 +6,7 @@ interface InputProps {
     label: string;
     id: string;
     type: string;
-    value: string|number;
+    value?: string|number;
     onChange: (e: ChangeEvent<HTMLInputElement|HTMLSelectElement>)=> void; 
     min?: number|string;
     max?: number;

@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import '../css/CarEdit.css';
+import '../css/CarAddEdit.css';
 import ManufacturerData from '../models/manufacturer';
 import TypeData from '../models/type';
 import ManufacturerService from '../services/ManufacturerService';
