@@ -2,11 +2,13 @@ import '../css/CarDetails.css';
 import CarData from '../models/car-data';
 import CarDetailsItem from './CarDetailIsItem';
 
+// Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
 interface CarDetailsProps {
     car:CarData
     changeDetailsVisibility: (car?:CarData) => void
 }
 
+// Komponent wyświetlający wszytskie informacje na temat danego samochodu
 function CarDetails(props:CarDetailsProps) {
     const {car} = props;
     return (

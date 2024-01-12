@@ -1,0 +1,53 @@
+.nav-list{
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2rem;
+}
+.nav-list li:nth-child(2){
+    margin: 0 1.5rem 0 1.5rem;
+}
+.nav-list>li>a:hover{
+    color: #8824f9;
+    text-decoration: underline;
+}
+.nav-list>li>a:focus{
+    color: #8824f9;
+    text-decoration: underline;
+}
+@keyframes SlideRight {
+    0% {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+@keyframes SlideLeft {
+    0% {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+@keyframes SlideTop {
+    0% {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}

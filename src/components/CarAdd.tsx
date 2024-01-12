@@ -14,6 +14,8 @@ import FormError from './FormError';
 import { parseDate, convertDateForSaveToDb, mapGearbox} from '../helpers/helpers'
 import { Navigate} from 'react-router-dom';
 
+
+// Interfejs stanu definiujący typy wartości stanu komponentu
 interface CarAddState {
     manufacturers: ManufacturerData[],
     types: TypeData[],
@@ -29,9 +31,12 @@ interface CarAddState {
     submited:boolean
 }
 
-class AddCar extends Component<{}, CarAddState>{
-    constructor(){
-        super({});
+// Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
+interface CarAddProps{}
+
+class CarAdd extends Component<CarAddProps, CarAddState>{
+    constructor(props:CarAddProps){
+        super(props);
         
         this.state = {
             manufacturers: [],
@@ -49,7 +54,7 @@ class AddCar extends Component<{}, CarAddState>{
         };
     }
 
-    // Pobranie danych z serwera
+    // Pobranie danych z serwera przy załadowaniu komponentu
     componentDidMount(){
         this.fetchManufacturers();
         this.fetchTypes();
@@ -100,6 +105,7 @@ class AddCar extends Component<{}, CarAddState>{
             console.error('Error fetching data:', error);
         }
     }
+
     // Metoda modyfikująca state z każdą zmianą formularza
     onChange = (e: ChangeEvent<HTMLInputElement|HTMLSelectElement>):void => {
         this.setState(
@@ -158,6 +164,7 @@ class AddCar extends Component<{}, CarAddState>{
         });      
     }
 
+    // Metoda wysyłająca dane dotyczące dodawanego samochodu na serwer
     postCar = async (car:CarData) => {
         try {
           const result = await CarService.postCar(car);
@@ -167,8 +174,8 @@ class AddCar extends Component<{}, CarAddState>{
         }
     }
 
+    // Metoda renderująca komponent
     render(){
-
         const {manufacturers,types} = this.state
 
         const type_names:string[] = types
@@ -178,8 +185,6 @@ class AddCar extends Component<{}, CarAddState>{
         const seats_count: number[] = types
         .map(type => type.SeatsCount)
         .filter((value, index, self) => self.indexOf(value) === index).sort((a:number,b:number)=>a-b);
-        
-
 
         return(
             <>
@@ -215,4 +220,5 @@ class AddCar extends Component<{}, CarAddState>{
         );
     }
 }
-export default AddCar;
+
+export default CarAdd;

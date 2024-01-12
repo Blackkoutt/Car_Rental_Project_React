@@ -4,33 +4,52 @@ import TypeData from '../models/type';
 import CarService from '../services/CarService';
 import React from 'react';
 import CarListElement from './CarListElement'
-import CarEdit from './CarEdit'
 import '../css/CarList.css';
 import CarDetails from './CarDetails';
+import FilterList from './FilterList';
+import Notification from './Notification';
+import Dialog from './Dialog';
 
-
+// Interfejs stanu definiujący typy dla wartości stanu
 interface CarsState {
     cars: CarData[],
-    detailsCar: CarData|undefined
+    detailsCar?: CarData,
+    deleteCar?:CarData,
+    defaultCars: CarData[]
+    showNotification: boolean
 }
 
-class CarList extends React.Component<{}, CarsState>{
-    constructor(){
-        super({});
+// Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
+interface CarsProps{}
+
+// Komponent wyświetlający listę samochodów
+class CarList extends React.Component<CarsProps, CarsState>{
+    notificationRef = React.createRef<HTMLDialogElement>();
+    dialogRef = React.createRef<HTMLDialogElement>();
+    constructor(props:CarsProps){
+        super(props);
         this.state = {
             cars: [],
-            detailsCar: undefined
+            detailsCar: undefined,
+            deleteCar: undefined,
+            defaultCars: [],
+            showNotification: false
         };
     }
+
+    // Metoda wywoływana przy montowaniu komponentu - pobranie danych samochodów z serwera
     componentDidMount(){
         this.fetchCars();
     }
+
+    // Metoda zmieniająca widzialność komponentu CarDetails
     changeDetailsVisibility = (car?:CarData):void => {
-        console.log("here");
         this.setState({
             detailsCar: car
         });
     }
+
+    // Metoda pobierająca dane z serwera
     fetchCars = async () => {
         try {
           const result = await CarService.getCars();
@@ -57,45 +76,101 @@ class CarList extends React.Component<{}, CarsState>{
                 car.Type.Id=new_car.type.id;
                 return car;
             }),
-          });
+          }, ()=>{
+            this.setState({
+                defaultCars: this.state.cars
+            })
+        });
         } catch (error) {
           console.error('Error fetching data:', error);
         }
     }
-    FormatDate(date:string):string{
+
+    // Metoda formatująca datę 
+    FormatDate = (date:string):string => {
         const originalDate:Date = new Date(date.split('T')[0]);
     
         const options:object = { day: '2-digit', month: '2-digit', year: 'numeric' };
         const formattedDate:string = new Intl.DateTimeFormat('pl-PL', options).format(originalDate);
         return formattedDate;
     }
+
+
+    // Metoda ustawiająca przefiltrowaną listę samochodów 
+    setFilteredList = (filtredCars?:CarData[]) => {
+        if(filtredCars!==undefined){
+            this.setState({
+                cars: filtredCars
+            });
+        }
+        else{
+            this.setState({
+                cars: this.state.defaultCars
+            });
+        }       
+    }
+
+    // Metoda ustawiająca usuwany samochód
+    setDeleteCar = (car:CarData) => {
+        this.setState({
+            deleteCar: car
+        }, ()=>{
+            this.dialogRef.current?.showModal();
+        })
+    }
+
+    // Metoda pobierająca referencję do dialogu w komponencie Dialog
+    getDialogRef=( ref: React.RefObject<HTMLDialogElement>)=>{
+        this.dialogRef = ref;
+        if(this.state.deleteCar!==undefined){
+            this.dialogRef.current?.showModal();
+        }
+    }
+
+    // Metoda usuwająca samochód
+    deleteCar = async () => {
+        try {
+            const result = await CarService.deleteCar(this.state.deleteCar?.Id);
+            this.setState({
+                cars: this.state.cars.filter(c => c!==this.state.deleteCar),
+                showNotification:true,
+                deleteCar: undefined
+            });
+            console.log("DELETE car:", result);
+        } catch (error) {
+            console.error('Error DELETE data:', error);
+        }
+    }
+
+    // Metoda pobierająca referencję do powiadomienia w komponencie Notification
+    getNotificationRef=( ref: React.RefObject<HTMLDialogElement>)=>{
+       this.notificationRef = ref;
+       if(this.state.showNotification){
+            this.showNotification();
+        }
+    }
+
+    // Metoda wyświetlająca powiadomienie o poprawnym usunięciu samochodu
+    showNotification=()=>{
+        this.notificationRef.current?.showModal();
+        setTimeout(()=>{
+          this.notificationRef.current?.close();
+        }, 1500);
+    }
+
+    // Metoda renderująca komponent
     render(){
-        const {cars} = this.state
+        const {cars, deleteCar} = this.state
+        const textDialog:string = `Czy napewno chcesz usunąć samochód ${deleteCar?.Manufacturer?.Name} ${deleteCar?.Model} ?`
+        const textNotification:string = `Pomyślnie usunięto samochód ${deleteCar?.Manufacturer?.Name} ${deleteCar?.Model}`
+        
         return(
             <>
                 {(this.state.detailsCar!==undefined) ? (
                     <CarDetails car={this.state.detailsCar} changeDetailsVisibility={this.changeDetailsVisibility}></CarDetails>
                 ) :   
                 <div className="table-div">
-                    <div className="filter">
-                        <div className="search_div">
-                        <label htmlFor="select_criteria">Szukaj według</label>
-                        <select id="select_criteria">
-                            <option value="manufacturer">Producent</option>
-                            <option value="model">Model</option>
-                            <option value="date_of_manufacture">Data produkcji</option>
-                            <option value="available_count">Liczba dostępnych</option>
-                            <option value="rental_cost">Koszt wynajęcia</option>
-                            <option value="seats_count">Liczba miejsc</option>
-                            <option value="gearbox">Skrzynia biegów</option>
-                            <option value="type">Typ</option>
-                        </select>
-                        </div>
-                        <div className="search_div">
-                        <label htmlFor="search">Wyszukaj</label>
-                        <input id="search" type="text"/>
-                        </div>
-                    </div>
+                    <FilterList cars={this.state.defaultCars} setFilteredList={this.setFilteredList} />
                     <table className="table table-dark table-hovers table-responsive">
                         <thead>
                             <tr>
@@ -112,29 +187,17 @@ class CarList extends React.Component<{}, CarsState>{
                         </thead> 
                         <tbody className="table-group-divider">
                             {cars.map((car: CarData) => (
-                                <CarListElement key={car.Id} car={car} changeDetailsVisibility={this.changeDetailsVisibility}/>
+                                <CarListElement key={car.Id} car={car} changeDetailsVisibility={this.changeDetailsVisibility} setDeleteCar={this.setDeleteCar}/>
                             ))}
                         </tbody>    
                     </table>
-                    <dialog className="delete_dialog">
-                    <form method="dialog">
-                        <div>
-                            <p></p>
-                            <button className="delete_button_dialog" type="submit">Usuń</button>
-                            <button className="cancel_button_dialog" type="reset">Anuluj</button>
-                        </div>
-                    </form>
-                    </dialog>
-                    <dialog className="success_dialog">
-                    <div className="success_dialog_div">
-                        <div></div>
-                        <p>Pomyślnie usunięto rezerwację</p>
-                    </div>     
-                    </dialog>
+                    <Dialog text={textDialog} getRef={this.getDialogRef} deleteCar={this.deleteCar}/>
+                    <Notification text={textNotification} getRef={this.getNotificationRef}/>
                 </div>
                 }
             </>
         );
     }
 }
+
 export default CarList;

@@ -56,7 +56,7 @@ class CarService {
           throw error;
         }
     }
-    async deleteCar(carId:number) {
+    async deleteCar(carId?:number) {
         try {
           const response = await this.api.delete(`${this.url}/${carId}`);
           return response.data;

@@ -13,6 +13,7 @@ import { RentalCostValidator, DateValidator, ModelValidator, AvailableCountValid
 import FormError from './FormError';
 import { parseDate, convertDateForSaveToDb, mapGearbox} from '../helpers/helpers'
 
+// Interfejs stanu definiujący typy wartości stanu komponentu
 interface CarEditState {
     manufacturers: ManufacturerData[],
     types: TypeData[],
@@ -26,10 +27,13 @@ interface CarEditState {
     type?:string,
     errors: string[]
 }
+
+// Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
 interface CarEditProps {
     car: CarData;
 }
 
+// Komponent wyświetlający formularz edycji samochodu
 class CarEdit extends React.Component<CarEditProps, CarEditState>{
     constructor(props:CarEditProps){
         super(props);
@@ -203,4 +207,5 @@ class CarEdit extends React.Component<CarEditProps, CarEditState>{
         )
     }
 }
+
 export default CarEdit;

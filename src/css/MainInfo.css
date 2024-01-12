@@ -1,0 +1,29 @@
+.welcome>input[type="button"]{
+    background-color: #8824f9;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    color:#fff;
+    padding: 0.4rem;
+    transition: 2s ease forwards;
+    animation: SlideTop 2s ease forwards;
+}
+.welcome>input[type="button"]:hover{
+    background-color: #6602d7;
+    transform: translateY(1px);
+    cursor: pointer;
+}
+.welcome>input[type="button"]:focus{
+    background-color: #6602d7;
+    border: 3px #fff solid;
+    font-weight: 600;
+    transform: translateY(1px);
+}
+.welcome>h2{
+    font-size: 2rem;
+    animation: SlideRight 2s ease forwards;
+}
+.welcome>p{
+    font-size: 1rem;
+    animation: SlideLeft 2s ease forwards;
+}

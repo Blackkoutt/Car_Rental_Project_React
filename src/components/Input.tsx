@@ -2,6 +2,7 @@
 import { ChangeEvent } from 'react';
 import '../css/Input.css';
 
+// Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
 interface InputProps {
     label: string;
     id: string;
@@ -12,6 +13,7 @@ interface InputProps {
     max?: number;
 }
 
+// Komponent renderujący pole input
 function Input(props:InputProps) {
     const {onChange} = props;
     return (
@@ -21,4 +23,5 @@ function Input(props:InputProps) {
         </div>
     )
 }
+
 export default Input;

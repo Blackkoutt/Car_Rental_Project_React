@@ -1,5 +1,6 @@
 import '../css/NotFound.css';
 
+// Komponent renderujący widok błedu 404
 function NotFound() {
     return (
         <div className="error-404">

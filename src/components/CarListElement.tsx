@@ -1,16 +1,21 @@
-import React, { Component, useRef } from 'react';
+import React, { Component} from 'react';
 import CarData from '../models/car-data';
 import CarEdit from './CarEdit';
 
+// Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
 interface CarProps {
     car: CarData,
-    changeDetailsVisibility: (car?:CarData) => void
+    changeDetailsVisibility: (car?:CarData) => void,
+    setDeleteCar: (car:CarData) => void,
 }
+
+// Interfejs stanu definiujący typy wartości stanu komponentu
 interface CarState {
     car: CarData,
     visible: boolean
 }
 
+// Komponent wyświetlający pojedyńczy wiersz listy (dane pojedyńczego samochodu)
 class CarListElement extends Component<CarProps, CarState>{
     editButtonRef = React.createRef<HTMLButtonElement>();
     constructor(props:CarProps){
@@ -21,29 +26,16 @@ class CarListElement extends Component<CarProps, CarState>{
             visible: false
         };
     }
-    modifyCar = (modified_car:CarData) => {
-        this.setState(state => {
-            let car:CarData = state.car;
-            Object.assign(car, {
-                manufacturerId: Number(modified_car.Manufacturer?.Id), // to trzeba potem zmienić
-                typeId: modified_car.Type?.Id, // to też
-                model: modified_car.Model,
-                date_of_manufacture: modified_car.DateOfManufacture, // convet date for save
-                available_count: Number(modified_car.AvailableCount),
-                rental_cost: Number(modified_car.RentalCost),
-                gearbox: modified_car.GearBox // map gearbox
-              });
-            car.Manufacturer = undefined;
-            car.Type = undefined;
-            return { car: car };
-        })
-   }
+
+    // Metoda ustawiająca edytowany samochód
    setEditCar=()=>{
     this.setState((prevState) => ({
         visible: !prevState.visible,
       }));
     this.changeModifyButton(this.state.visible);
    }
+
+   // Metoda zmieniająca wygląd przycisku "Modyfikuj"
    changeModifyButton=(visible:boolean)=>{
     if (this.editButtonRef.current) {
         if(visible){
@@ -56,11 +48,8 @@ class CarListElement extends Component<CarProps, CarState>{
         }       
     }
    }
-    // componentDidMount() {
-    //     this.setState({
-    //       car: this.props.car,
-    //     });
-    //   }
+
+   // Metoda renderująca komponent
     render(){
         const { car } = this.state;
         return(
@@ -74,19 +63,19 @@ class CarListElement extends Component<CarProps, CarState>{
                 <td>{car.Type?.SeatsCount}</td>
                 <td>{car.GearBox ? 'Automatyczna' : 'Manualna' }</td>
                 <td>{car.Type?.Name}</td>
-                <td className="action_buttons">
-                    {/* <button appChangeEditButton [carInput]="car" (outputCarEvent)="fun($event)" (click)="editCar(car)">Modyfikuj</button> */}
+                <td className="action_buttons">   
                     <button ref={this.editButtonRef} onClick={this.setEditCar} className="modify_button">Modyfikuj</button>
-                    {/* <a [routerLink]="['/modify',car.Id]" ><button (click)="editCar(car)">Modyfikuj</button></a>--> */}
                     <button className="details_button" onClick={()=>this.props.changeDetailsVisibility(this.props.car)} >Szczegóły/Wynajem</button>
-                    <button className="delete_button">Usuń</button>
+                    <button onClick={()=>this.props.setDeleteCar(car)} className="delete_button">Usuń</button>
                 </td> 
             </tr>
+           
             {this.state.visible ? (
                     <CarEdit car={car}></CarEdit>
-                ) : null}          
+                ) : null} 
         </>
         );
     }
 }
+
 export default CarListElement;

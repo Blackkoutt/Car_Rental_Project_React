@@ -13,6 +13,13 @@ const IsCorrectDateValidator = (value: string): boolean => {
       const inputDate = new Date(parseDate(value));
       const minDate = new Date('2010-01-01');
       const maxDate = new Date();
+
+      inputDate.setHours(0, 0, 0, 0);
+      minDate.setHours(0, 0, 0, 0);
+      maxDate.setHours(0, 0, 0, 0);
+      
+      console.log(inputDate);
+      console.log(maxDate);
       return (inputDate >= minDate && inputDate <= maxDate);
 }
 const RequiredValidator = (value: string): boolean => { 

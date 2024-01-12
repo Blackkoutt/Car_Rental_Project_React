@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react';
 import '../css/Select.css';
 import ManufacturerData from '../models/manufacturer';
-import TypeData from '../models/type';
 
+// Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
 interface SelectProps {
     label: string;
     id: string;
@@ -12,12 +12,12 @@ interface SelectProps {
     selected_gearbox?: string;
     mans?:ManufacturerData[];
     onChange: (e: ChangeEvent<HTMLInputElement|HTMLSelectElement>)=> void; 
-    //types?:TypeData[];
     type_names?:string[]
     seats_count?:number[]
     gearbox?:string[];
 }
 
+// Komponent renderujący Select (używany w formularzach edycji i doawania samochodu)
 function Select(props:SelectProps) {
     const {onChange} = props;
     return (   
@@ -62,4 +62,5 @@ function Select(props:SelectProps) {
         </div>
     )
 }
+
 export default Select;

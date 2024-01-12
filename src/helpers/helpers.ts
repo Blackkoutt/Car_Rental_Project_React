@@ -24,3 +24,11 @@ export const mapGearbox = (gearbox:string) => {
       return false;
     }
 }
+export const scrollToElement = (elementRef: React.RefObject<HTMLElement>) => {
+    if (elementRef.current) {
+      elementRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+};
