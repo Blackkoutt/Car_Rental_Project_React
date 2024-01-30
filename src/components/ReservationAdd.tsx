@@ -53,6 +53,10 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
             return 1;
         }
     }
+    useEffect(() => {
+        ValidateForm();
+        calculateTotalCost();
+    }, [name, surname, email, phone_number, start_of_reservation, end_of_reservation]);
     const onChange = async (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>)=> {
         const { id, value } = e.target;
         console.log('wartosc:', value);
@@ -81,8 +85,8 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
                 break;
         }
 
-         ValidateForm();
-         await calculateTotalCost();
+        // ValidateForm();
+         //await calculateTotalCost();
     }
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -96,7 +100,9 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
                 userId: user?.Id,
                 start_of_reservation: convertDateForSaveToDb(start_of_reservation),
                 end_of_reservation: convertDateForSaveToDb(end_of_reservation),
-                total_cost: Number(total_cost)
+                total_cost: Number(total_cost),
+                user: user,
+                car: car
             });
 
             await postReservation(reservationAdd);
