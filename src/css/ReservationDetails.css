@@ -1,0 +1,43 @@
+.reservation-details-container {
+    margin-bottom: 1rem;
+}
+.back_button{
+  margin:0;
+}
+.back_button>button
+{
+  margin-top:1.5rem;
+  background-color: #8824f9;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem;
+  font-size: 1rem;
+  color:#fff;
+}
+.back_button>button:hover{
+  background-color: #6602d7;
+  cursor: pointer;
+}
+.reservation-details-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background-color: #494646; /* Szary kolor tła */
+  padding: 20px;
+  border-radius: 10px; /* Zaokrąglony narożnik */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Cień */
+}
+.action-buttons {
+  margin-top: 20px;
+}
+
+.reserve-button {
+  padding: 10px;
+  background-color: #007bff; /* Kolor przycisku */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import '../css/CarDetails.css';
 import CarData from '../models/car-data';
 import CarDetailsItem from './CarDetailIsItem';
+import ReservationAdd from './ReservationAdd';
 import { Link } from 'react-router-dom';
 
 // Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
@@ -33,7 +34,7 @@ function CarDetails(props:CarDetailsProps) {
                     <CarDetailsItem label="Skrzynia biegów:  " value={ car.GearBox ? 'Automatyczna' : 'Manualna' }></CarDetailsItem>
                     <CarDetailsItem label="Typ: " value={ car.Type?.Name }></CarDetailsItem>
                     <div className="action-buttons">
-                        <Link to="/"><button className="reserve-button">Wynajmij</button></Link>
+                    <Link to={`/addRes/${car.Id}`} className="reserve-button" title="Wynajmij samochód">Wynajmij</Link>
                     </div>
                 </div>
                 <div className="back_button">

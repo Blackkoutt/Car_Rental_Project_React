@@ -18,7 +18,7 @@ function NavBar(props : MainInfoProps) {
                     <li><Link to="/" title="Strona główna">Strona główna</Link></li>
                     <li onClick={()=>scrollToElement(props.element)}><Link to="/about" title="Informacje o serwisie">O nas</Link></li>
                     <li onClick={()=>scrollToElement(props.element)} ><Link to="/add" title="Dodawanie nowego pojazdu">Dodaj pojazd</Link></li>
-                    <li><Link to="/" title="Lista twoich wypożyczeń">Wypożyczenia</Link></li>
+                    <li onClick={()=>scrollToElement(props.element)}><Link to="/reservations" title= "Lista rezerwacji">Wypożyczenia</Link></li>
                 </ul>
             </div>
             <button onClick={()=>openCloseAccordion(acc)}  className="collapsed_nav"> 
@@ -33,7 +33,7 @@ function NavBar(props : MainInfoProps) {
                             <li><Link to="/" title="Strona główna">Strona główna</Link></li>
                             <li onClick={()=>scrollToElement(props.element)}><Link to="/about" title="Informacje o serwisie">O nas</Link></li>
                             <li onClick={()=>scrollToElement(props.element)} ><Link to="/add" title="Dodawanie nowego pojazdu">Dodaj pojazd</Link></li>
-                            <li><Link to="/" title="Lista twoich wypożyczeń">Wypożyczenia</Link></li>
+                            <li onClick={()=>scrollToElement(props.element)}><Link to="/reservations" title= "Lista rezerwacji">Wypożyczenia</Link></li>
                         </ul>
                     </div>
                 </div>
