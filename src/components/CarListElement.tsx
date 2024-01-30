@@ -19,8 +19,7 @@ interface CarState {
 class CarListElement extends Component<CarProps, CarState>{
     editButtonRef = React.createRef<HTMLButtonElement>();
     constructor(props:CarProps){
-        super(props);
-        
+        super(props);    
         this.state = {
             car: props.car,
             visible: false
@@ -28,7 +27,7 @@ class CarListElement extends Component<CarProps, CarState>{
     }
 
     // Metoda ustawiająca edytowany samochód
-   setEditCar=()=>{
+   setEditCar=():void=>{
     this.setState((prevState) => ({
         visible: !prevState.visible,
       }));
@@ -36,7 +35,7 @@ class CarListElement extends Component<CarProps, CarState>{
    }
 
    // Metoda zmieniająca wygląd przycisku "Modyfikuj"
-   changeModifyButton=(visible:boolean)=>{
+   changeModifyButton=(visible:boolean):void=>{
     if (this.editButtonRef.current) {
         if(visible){
             this.editButtonRef.current.textContent = "Modyfikuj";

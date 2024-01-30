@@ -11,7 +11,7 @@ import Input from './Input'
 import { RentalCostValidator, DateValidator, ModelValidator, AvailableCountValidator,
         SeatsValidator, TypeValidator} from '../validators/validators';
 import FormError from './FormError';
-import { parseDate, convertDateForSaveToDb, mapGearbox} from '../helpers/helpers'
+import { convertDateForSaveToDb, mapGearbox} from '../helpers/helpers'
 import { Navigate} from 'react-router-dom';
 
 
@@ -55,13 +55,17 @@ class CarAdd extends Component<CarAddProps, CarAddState>{
     }
 
     // Pobranie danych z serwera przy załadowaniu komponentu
-    componentDidMount(){
+    componentDidMount(): void{
         this.fetchManufacturers();
         this.fetchTypes();
+        document.title="Dodawanie nowego pojazdu - CarRental"
+    }
+    componentWillUnmount(): void {
+        document.title="Strona główna - CarRental"
     }
 
     // Metoda pobierająca producentów z serwera
-    fetchManufacturers = async () => {
+    fetchManufacturers = async ():Promise<any> => {
         try {
             const result = await ManufacturerService.getManufacturers();
             this.setState({
@@ -83,7 +87,7 @@ class CarAdd extends Component<CarAddProps, CarAddState>{
     }
 
     // Metoda pobierająca typy samochodów z serwera
-    fetchTypes = async () => {
+    fetchTypes = async ():Promise<any> => {
         try {
             const result = await TypeService.getTypes();
             this.setState({
@@ -117,7 +121,7 @@ class CarAdd extends Component<CarAddProps, CarAddState>{
     }
 
     // Metoda wywoływana w momencie submitu formularza
-    onSubmit= async (e: React.FormEvent<HTMLFormElement>)=>{
+    onSubmit= async (e: React.FormEvent<HTMLFormElement>):Promise<any>=>{
         await this.ValidateForm();
         if (this.state.errors.length) { 
             e.preventDefault();
@@ -145,9 +149,9 @@ class CarAdd extends Component<CarAddProps, CarAddState>{
     }
 
     // Metoda walidująca formularz
-    ValidateForm= async ()=>{
-        const{manufacturer, model,  date_of_manufacture,
-             available_count, rental_cost, seats_count, gearbox,  type} = this.state;
+    ValidateForm= async ():Promise<any>=>{
+        const{ model,  date_of_manufacture,
+             available_count, rental_cost, seats_count, type} = this.state;
         
         let error_array:string[] = [];
         error_array.push(...AvailableCountValidator(available_count.toString()));
@@ -165,7 +169,7 @@ class CarAdd extends Component<CarAddProps, CarAddState>{
     }
 
     // Metoda wysyłająca dane dotyczące dodawanego samochodu na serwer
-    postCar = async (car:CarData) => {
+    postCar = async (car:CarData):Promise<any> => {
         try {
           const result = await CarService.postCar(car);
           console.log("POST car:", result);
@@ -187,7 +191,7 @@ class CarAdd extends Component<CarAddProps, CarAddState>{
         .filter((value, index, self) => self.indexOf(value) === index).sort((a:number,b:number)=>a-b);
 
         return(
-            <>
+            <article id="add_car_article">
                 {this.state.submited &&  
                     <Navigate to="/" />
                 }
@@ -216,7 +220,7 @@ class CarAdd extends Component<CarAddProps, CarAddState>{
                         </div>
                     </form>
                 </div>
-            </>
+            </article>
         );
     }
 }

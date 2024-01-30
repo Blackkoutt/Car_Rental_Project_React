@@ -1,4 +1,4 @@
-import { createRef } from 'react';
+import { createRef} from 'react';
 import '../css/App.css';
 import CarList from './CarList'
 import NotFound from './NotFound'
@@ -8,6 +8,7 @@ import Logo from './Logo';
 import NavBar from './NavBar';
 import MainInfo from './MainInfo';
 import Footer from './Footer';
+import About from './About';
 
 // Komponent nadrzędny renderujący content strony
 // Komponent ten definiuje routing
@@ -27,10 +28,11 @@ function App() {
           <section id="info">
              <MainInfo element={targetElementRef}/>         
           </section>
-          <section id="cars" ref={targetElementRef}>         
-            <Routes>
-              <Route path="/" element={<CarList/>} />
+          <section id="main_content" ref={targetElementRef}>         
+            <Routes>            
               <Route path="/add" element={<CarAdd/>} />
+              <Route path="/about" element={<About/>} />
+              <Route path="/" element={<CarList/>} />
               <Route Component={NotFound} />
             </Routes>
           </section>

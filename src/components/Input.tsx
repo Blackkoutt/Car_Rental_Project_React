@@ -7,6 +7,7 @@ interface InputProps {
     label: string;
     id: string;
     type: string;
+    placeholder? :string;
     value?: string|number;
     onChange: (e: ChangeEvent<HTMLInputElement|HTMLSelectElement>)=> void; 
     min?: number|string;
@@ -18,8 +19,8 @@ function Input(props:InputProps) {
     const {onChange} = props;
     return (
         <div className="form_input">
-            <label>{props.label}</label>
-            <input id={props.id} type={props.type} min={props.min?.toString()} max={props.max?.toString()} defaultValue={props.value} onChange={onChange}/>
+            <label htmlFor={props.id}>{props.label}</label>
+            <input id={props.id} type={props.type} min={props.min?.toString()} max={props.max?.toString()} placeholder={props.placeholder} defaultValue={props.value} onChange={onChange}/>
         </div>
     )
 }

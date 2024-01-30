@@ -1,0 +1,21 @@
+.about_info_div h2 {
+  font-size: 2rem;
+  margin: 0 0 1.5rem 0;
+}
+.about_info_div {
+  border: 3px #8824f9 solid;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 2rem 0 2rem 0;
+}
+.about_info_div > img {
+  width: 400px;
+  height: 168px;
+  margin-right: 1rem;
+  float: left;
+}
+.about_info_div > p {
+  text-align: left;
+  font-size: 0.8rem;
+}

@@ -38,7 +38,8 @@ class CarList extends React.Component<CarsProps, CarsState>{
     }
 
     // Metoda wywoływana przy montowaniu komponentu - pobranie danych samochodów z serwera
-    componentDidMount(){
+    componentDidMount():void{
+        document.title="Strona główna - CarRental"
         this.fetchCars();
     }
 
@@ -50,7 +51,7 @@ class CarList extends React.Component<CarsProps, CarsState>{
     }
 
     // Metoda pobierająca dane z serwera
-    fetchCars = async () => {
+    fetchCars = async ():Promise<any> => {
         try {
           const result = await CarService.getCars();
           this.setState({
@@ -97,7 +98,7 @@ class CarList extends React.Component<CarsProps, CarsState>{
 
 
     // Metoda ustawiająca przefiltrowaną listę samochodów 
-    setFilteredList = (filtredCars?:CarData[]) => {
+    setFilteredList = (filtredCars?:CarData[]):void => {
         if(filtredCars!==undefined){
             this.setState({
                 cars: filtredCars
@@ -111,7 +112,8 @@ class CarList extends React.Component<CarsProps, CarsState>{
     }
 
     // Metoda ustawiająca usuwany samochód
-    setDeleteCar = (car:CarData) => {
+    setDeleteCar = (car:CarData):void => {
+        document.title="Usuwanie pojazdu - CarRental"
         this.setState({
             deleteCar: car
         }, ()=>{
@@ -120,7 +122,7 @@ class CarList extends React.Component<CarsProps, CarsState>{
     }
 
     // Metoda pobierająca referencję do dialogu w komponencie Dialog
-    getDialogRef=( ref: React.RefObject<HTMLDialogElement>)=>{
+    getDialogRef=( ref: React.RefObject<HTMLDialogElement>):void=>{
         this.dialogRef = ref;
         if(this.state.deleteCar!==undefined){
             this.dialogRef.current?.showModal();
@@ -128,7 +130,7 @@ class CarList extends React.Component<CarsProps, CarsState>{
     }
 
     // Metoda usuwająca samochód
-    deleteCar = async () => {
+    deleteCar = async ():Promise<any> => {
         try {
             const result = await CarService.deleteCar(this.state.deleteCar?.Id);
             this.setState({
@@ -143,7 +145,7 @@ class CarList extends React.Component<CarsProps, CarsState>{
     }
 
     // Metoda pobierająca referencję do powiadomienia w komponencie Notification
-    getNotificationRef=( ref: React.RefObject<HTMLDialogElement>)=>{
+    getNotificationRef=( ref: React.RefObject<HTMLDialogElement>):void=>{
        this.notificationRef = ref;
        if(this.state.showNotification){
             this.showNotification();
@@ -151,7 +153,7 @@ class CarList extends React.Component<CarsProps, CarsState>{
     }
 
     // Metoda wyświetlająca powiadomienie o poprawnym usunięciu samochodu
-    showNotification=()=>{
+    showNotification=():void=>{
         this.notificationRef.current?.showModal();
         setTimeout(()=>{
           this.notificationRef.current?.close();
@@ -165,37 +167,41 @@ class CarList extends React.Component<CarsProps, CarsState>{
         const textNotification:string = `Pomyślnie usunięto samochód ${deleteCar?.Manufacturer?.Name} ${deleteCar?.Model}`
         
         return(
-            <>
+            <article id="car_list">
                 {(this.state.detailsCar!==undefined) ? (
                     <CarDetails car={this.state.detailsCar} changeDetailsVisibility={this.changeDetailsVisibility}></CarDetails>
                 ) :   
                 <div className="table-div">
                     <FilterList cars={this.state.defaultCars} setFilteredList={this.setFilteredList} />
-                    <table className="table table-dark table-hovers table-responsive">
-                        <thead>
-                            <tr>
-                            <th scope="col">Producent</th>
-                            <th scope="col">Model</th>
-                            <th scope="col">Data produkcji</th>
-                            <th scope="col">Liczba dostępnych</th>
-                            <th scope="col">Koszt wynajęcia</th>
-                            <th scope="col">Liczba miejsc</th>
-                            <th scope="col">Skrzynia biegów</th>
-                            <th scope="col">Typ</th>
-                            <th scope="col">Akcja</th>
-                            </tr>
-                        </thead> 
-                        <tbody className="table-group-divider">
-                            {cars.map((car: CarData) => (
-                                <CarListElement key={car.Id} car={car} changeDetailsVisibility={this.changeDetailsVisibility} setDeleteCar={this.setDeleteCar}/>
-                            ))}
-                        </tbody>    
-                    </table>
+                    <div className="table_inner_div">
+                        <div className="table-responsive">
+                                <table className="table table-dark table-hovers table-responsive">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Producent</th>
+                                        <th scope="col">Model</th>
+                                        <th scope="col">Data produkcji</th>
+                                        <th scope="col">Liczba dostępnych</th>
+                                        <th scope="col">Koszt wynajęcia</th>
+                                        <th scope="col">Liczba miejsc</th>
+                                        <th scope="col">Skrzynia biegów</th>
+                                        <th scope="col">Typ</th>
+                                        <th scope="col">Akcja</th>
+                                        </tr>
+                                    </thead> 
+                                    <tbody className="table-group-divider">
+                                        {cars.map((car: CarData) => (
+                                            <CarListElement key={car.Id} car={car} changeDetailsVisibility={this.changeDetailsVisibility} setDeleteCar={this.setDeleteCar}/>
+                                        ))}
+                                    </tbody>    
+                                </table>
+                            </div>
+                        </div>
                     <Dialog text={textDialog} getRef={this.getDialogRef} deleteCar={this.deleteCar}/>
                     <Notification text={textNotification} getRef={this.getNotificationRef}/>
                 </div>
                 }
-            </>
+            </article>
         );
     }
 }

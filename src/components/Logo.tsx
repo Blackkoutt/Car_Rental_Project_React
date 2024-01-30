@@ -4,7 +4,7 @@ import '../css/Logo.css';
 // Komponent renderujący logo strony
 function Logo() {
     return (
-        <Link to="/">
+        <Link to="/" title="Strona główna">
             <div className="logo">
                 <h1><span className="first_part_logo">Car</span><span className="second_part_logo">Rental</span></h1>
             </div>

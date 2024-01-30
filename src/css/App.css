@@ -1,96 +1,96 @@
-.topbar{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center; 
-    /*background-color: #191d21;*/
+.topbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  background-color: rgba(25, 29, 33, 0.1);
+  /*background-color: #191d21;*/
 }
 
-
-#main-article{
-    width:65%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin: auto;
+#main-article {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: auto;
 }
-#info{
-    height: 95%;
-    margin: 5rem 0 7rem 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-a{
-    text-decoration: none;
-    color:#fff;
+#info {
+  height: 95%;
+  margin: 6.5rem 0 7rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+a {
+  text-decoration: none;
+  color: #fff;
+}
 
-@keyframes ZoomIn{
-    0%{
-        opacity:0;
-        transform:scale(0);
-    }
-    100%{
-        opacity:1;
-        transform: scale(1);
-    }
+@keyframes ZoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 @keyframes FadeIn {
-    0% {
-        opacity: 0;
-    }
+  0% {
+    opacity: 0;
+  }
 
-    100% {
-        opacity: 1;
-    }
+  100% {
+    opacity: 1;
+  }
 }
 @keyframes SlideRight {
-    0% {
-        transform: translateX(-50px);
-        opacity: 0;
-    }
+  0% {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
 
-    100% {
-        transform: translateX(0px);
-        opacity: 1;
-    }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
 }
 @keyframes SlideLeft {
-    0% {
-        transform: translateX(50px);
-        opacity: 0;
-    }
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+  }
 
-    100% {
-        transform: translateX(0px);
-        opacity: 1;
-    }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
 }
 @keyframes SlideTop {
-    0% {
-        transform: translateY(40px);
-        opacity: 0;
-    }
+  0% {
+    transform: translateY(40px);
+    opacity: 0;
+  }
 
-    100% {
-        transform: translateY(0px);
-        opacity: 1;
-    }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }
 @keyframes SlideBottom {
-    0% {
-        transform: translateY(-40px);
-        opacity: 0;
-    }
+  0% {
+    transform: translateY(-40px);
+    opacity: 0;
+  }
 
-    100% {
-        transform: translateY(0px);
-        opacity: 1;
-    }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }

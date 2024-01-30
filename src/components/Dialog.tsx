@@ -1,5 +1,6 @@
 import { createRef, useEffect } from 'react';
 import '../css/Dialog.css';
+import { closeDialogAndChangeTitle } from '../helpers/helpers';
 
 // Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
 interface DialogProps {
@@ -23,7 +24,7 @@ function Dialog(props:DialogProps) {
                 <div>
                     <p>{props.text}</p>
                     <button className="delete_button_dialog" type="submit" onClick={props.deleteCar}>Usuń</button>
-                    <button className="cancel_button_dialog" type="reset" onClick={()=>targetElementRef.current?.close()}>Anuluj</button>
+                    <button className="cancel_button_dialog" type="reset" onClick={()=>closeDialogAndChangeTitle(targetElementRef)}>Anuluj</button>
                 </div>
             </form>
         </dialog>

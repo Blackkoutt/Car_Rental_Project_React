@@ -53,13 +53,17 @@ class CarEdit extends React.Component<CarEditProps, CarEditState>{
     }
 
     // Pobranie danych z serwera
-    componentDidMount(){
+    componentDidMount():void{
         this.fetchManufacturers();
         this.fetchTypes();
+        document.title="Edycja pojazdu - CarRental"
+    }
+    componentWillUnmount(): void {
+        document.title="Strona główna - CarRental"
     }
 
     // Metoda pobierająca producentów z serwera
-    fetchManufacturers = async () => {
+    fetchManufacturers = async ():Promise<any> => {
         try {
           const result = await ManufacturerService.getManufacturers();
           this.setState({
@@ -77,7 +81,7 @@ class CarEdit extends React.Component<CarEditProps, CarEditState>{
     }
 
     // Metoda pobierająca typy samochodów z serwera
-    fetchTypes = async () => {
+    fetchTypes = async ():Promise<any> => {
         try {
           const result = await TypeService.getTypes();
           this.setState({
@@ -96,7 +100,7 @@ class CarEdit extends React.Component<CarEditProps, CarEditState>{
     }
 
     // Metoda modyfikująca dane w bazie danych
-    putCar = async (car:CarData) => {
+    putCar = async (car:CarData):Promise<any> => {
         try {
           const result = await CarService.updateCar(car);
           console.log("PUT car:", result);
@@ -116,7 +120,7 @@ class CarEdit extends React.Component<CarEditProps, CarEditState>{
     }
 
     // Metoda wywoływana w momencie submitu formularza
-    onSubmit= async (e: React.FormEvent<HTMLFormElement>)=>{
+    onSubmit= async (e: React.FormEvent<HTMLFormElement>):Promise<any>=>{
         await this.ValidateForm();
         if (this.state.errors.length) { 
             e.preventDefault();
@@ -143,9 +147,9 @@ class CarEdit extends React.Component<CarEditProps, CarEditState>{
     }
 
     // Metoda walidująca formularz
-    ValidateForm= async ()=>{
-        const{manufacturer, model,  date_of_manufacture,
-             available_count, rental_cost, seats_count, gearbox,  type} = this.state;
+    ValidateForm= async ():Promise<any>=>{
+        const{ model,  date_of_manufacture,
+             available_count, rental_cost, seats_count, type} = this.state;
         
         let error_array:string[] = [];
         error_array.push(...AvailableCountValidator(available_count.toString()));

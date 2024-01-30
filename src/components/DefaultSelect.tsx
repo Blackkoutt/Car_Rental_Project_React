@@ -26,7 +26,7 @@ function DefaultSelect(props:DefaultSelectProps) {
     const {label, id, values, onChange} = props;
     return (
         <div className="form_input">
-            <label>{label}</label>
+            <label htmlFor={id}>{label}</label>
             <select id={id} onChange={onChange}>
             {Object.entries(values).map(([key, value]) => (
                     <option key={key} value={key}>

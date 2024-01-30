@@ -22,7 +22,7 @@ function Select(props:SelectProps) {
     const {onChange} = props;
     return (   
         <div className="form_input">
-            <label>{props.label}</label>
+            <label htmlFor={props.id}>{props.label}</label>
             {props.id === "manufacturer" && (
                 <select id={props.id} value={props.selected_man} onChange={onChange}> 
                     {props.mans?.map((man: ManufacturerData) => (

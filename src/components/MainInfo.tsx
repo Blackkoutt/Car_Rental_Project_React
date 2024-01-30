@@ -1,6 +1,7 @@
 import { RefObject } from 'react';
 import '../css/MainInfo.css';
 import {scrollToElement} from '../helpers/helpers'
+import { Link } from 'react-router-dom';
 
 // Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
 interface MainInfoProps{
@@ -10,15 +11,21 @@ interface MainInfoProps{
 // Komponent renderujący informacje o stronie
 function MainInfo(props : MainInfoProps) {
     return (
-        <div className="welcome">
-            <h2>Witaj w CarRental</h2>
-            <p>
-                CarRental jest serwisem, który umożliwia wynajmowanie samochodów z łatwością i wygodą. Oferujemy szeroki wybór pojazdów, dostosowanych do różnych potrzeb i preferencji. 
-                Nie ważne, czy planujesz rodzinny wypad, służbową podróż, czy weekendowy wyjazd - CarRental ma dla Ciebie odpowiednią ofertę. Nasza flota obejmuje zarówno starsze jak i nowoczesne pojazdy, z różnymi opcjami wyposażenia, więc z pewnością znajdziesz coś dla siebie. 
-                Wynajmuj samochody z CarRental - z nami podróżowanie staje się jeszcze łatwiejsze!
-            </p>
-            <input onClick={()=>scrollToElement(props.element)} type="button" value="Sprawdź flotę pojazdów"/>
-        </div>
+        <article>
+            <div className="welcome">
+                <h2>Witaj w CarRental</h2>
+                <p>
+                    CarRental umożliwia łatwy i wygodny wynajem samochodów. Oferujemy szeroki wybór pojazdów, dostosowanych do różnych potrzeb. 
+                    Służbowa podróż, czy rodzinny wyjazd ? - CarRental ma dla Ciebie odpowiednią ofertę. Nasza flota obejmuje zarówno starsze jak i nowoczesne pojazdy. Z pewnością znajdziesz coś dla siebie. 
+                    Poróż z nami jest jeszcze łatwiejsza!
+                </p>
+                <Link to="/" title="Flota pojazdów" onClick={()=>scrollToElement(props.element)}>
+                    <div className="welcome_button">
+                            Sprawdź flotę pojazdów
+                    </div>   
+                </Link>  
+            </div>
+        </article>
     )
 }
 

@@ -1,19 +1,22 @@
-.form_input>label{  
-    margin-left: 0.4rem;
+.form_input > label {
+  margin-left: 0.4rem;
 }
-.form_input{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 1rem;
-    border-radius: 5px;
-    font-size:0.9rem;
-    background: linear-gradient(90deg, rgb(82, 18, 192), transparent) #956ced;
-    /*background-color: #40234e;*/
+.form_input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  background: linear-gradient(90deg, rgb(82, 18, 192), transparent) #956ced;
+  /*background-color: #40234e;*/
 }
-select{
-    width:12rem;
-    height: 1.3rem;
-    border:none;
-    border-radius: 5px;
+select {
+  width: 12rem;
+  height: 1.3rem;
+  border: none;
+  border-radius: 5px;
+}
+select:focus {
+  border: 0.1rem #956ced solid;
 }

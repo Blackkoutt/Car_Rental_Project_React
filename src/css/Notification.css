@@ -1,13 +1,13 @@
-.success_dialog_div{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+.success_dialog_div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
-.success_dialog{
-    border:0.2rem solid rgb(104, 57, 184);
-    background-color: rgb(0,0,0,0.9);
-    color: #fff;
-    border-radius: 10px;
-    text-align: center;
+.success_dialog {
+  border: 0.2rem solid rgb(104, 57, 184);
+  background-color: rgb(0, 0, 0, 0.9);
+  color: #fff;
+  border-radius: 10px;
+  text-align: center;
 }

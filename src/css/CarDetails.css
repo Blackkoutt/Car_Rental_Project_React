@@ -1,20 +1,19 @@
 .car-details-container {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
-.back_button{
-  margin:0;
+.back_button {
+  margin: 0;
 }
-.back_button>button
-{
-  margin-top:1.5rem;
+.back_button > button {
+  margin-top: 1.5rem;
   background-color: #8824f9;
   border: none;
   border-radius: 5px;
   padding: 0.3rem;
   font-size: 1rem;
-  color:#fff;
+  color: #fff;
 }
-.back_button>button:hover{
+.back_button > button:hover {
   background-color: #6602d7;
   cursor: pointer;
 }
@@ -40,4 +39,3 @@
   border-radius: 5px;
   cursor: pointer;
 }
-

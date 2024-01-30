@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import '../css/CarDetails.css';
 import CarData from '../models/car-data';
 import CarDetailsItem from './CarDetailIsItem';
+import { Link } from 'react-router-dom';
 
 // Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
 interface CarDetailsProps {
@@ -10,9 +12,15 @@ interface CarDetailsProps {
 
 // Komponent wyświetlający wszytskie informacje na temat danego samochodu
 function CarDetails(props:CarDetailsProps) {
+    useEffect(() => {
+        document.title = "Detale pojazdu - CarRental";
+        return () => {
+          document.title = 'Strona główna - CarRental';
+        };
+      });
     const {car} = props;
     return (
-        <>
+        <article id="car_details">
             <div className="car-details-container">
                 <div className ="car-details-box">
                     <CarDetailsItem label="ID: " value={car.Id?.toString()}></CarDetailsItem>
@@ -25,14 +33,14 @@ function CarDetails(props:CarDetailsProps) {
                     <CarDetailsItem label="Skrzynia biegów:  " value={ car.GearBox ? 'Automatyczna' : 'Manualna' }></CarDetailsItem>
                     <CarDetailsItem label="Typ: " value={ car.Type?.Name }></CarDetailsItem>
                     <div className="action-buttons">
-                        <a href="#"><button className="reserve-button">Wynajmij</button></a>
+                        <Link to="/"><button className="reserve-button">Wynajmij</button></Link>
                     </div>
                 </div>
                 <div className="back_button">
                     <button onClick={() => props.changeDetailsVisibility() }>Wróć</button>
                 </div>
             </div>
-        </>
+        </article>
     )
 }
 

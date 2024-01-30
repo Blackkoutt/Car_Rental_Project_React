@@ -1,29 +1,40 @@
-.welcome>input[type="button"]{
-    background-color: #8824f9;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    color:#fff;
-    padding: 0.4rem;
-    transition: 2s ease forwards;
-    animation: SlideTop 2s ease forwards;
+.welcome_button {
+  background-color: #8824f9;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #fff;
+  width: 11rem;
+  padding: 0.4rem;
+  transition: 2s ease forwards;
+  animation: SlideTop 2s ease forwards;
 }
-.welcome>input[type="button"]:hover{
-    background-color: #6602d7;
-    transform: translateY(1px);
-    cursor: pointer;
+.welcome_button:hover {
+  background-color: #6602d7;
+  transform: translateY(1px);
+  cursor: pointer;
 }
-.welcome>input[type="button"]:focus{
-    background-color: #6602d7;
-    border: 3px #fff solid;
-    font-weight: 600;
-    transform: translateY(1px);
+.welcome {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.welcome>h2{
-    font-size: 2rem;
-    animation: SlideRight 2s ease forwards;
+.welcome_button:focus {
+  background-color: #6602d7;
+  border: 3px #fff solid;
+  font-weight: 600;
+  transform: translateY(1px);
 }
-.welcome>p{
-    font-size: 1rem;
-    animation: SlideLeft 2s ease forwards;
+.welcome > h2 {
+  font-size: 2rem;
+  animation: SlideRight 2s ease forwards;
+  background-color: rgba(25, 29, 33, 0.1);
+}
+.welcome > p {
+  font-size: 0.9rem;
+  animation: SlideLeft 2s ease forwards;
+  border-radius: 15px;
+  background-color: rgba(25, 29, 33, 0.2);
 }

@@ -1,16 +1,17 @@
-.logo>a>h1{
-    font-size: 3rem;
-    padding: 0.5rem 0 0.5rem 0.5rem;
-    letter-spacing: 0.1rem;
-    margin-left: 0.5rem;
+.logo > h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  letter-spacing: 0.1rem;
+  margin-left: 0.5rem;
 }
-.second_part_logo{
-    background: linear-gradient(90deg, rgb(59, 3, 157), transparent) rgb(167, 129, 249);
-    background-clip: text;
-    color: transparent;
+.second_part_logo {
+  background: linear-gradient(90deg, rgb(59, 3, 157), transparent) rgb(167, 129, 249);
+  background-clip: text;
+  color: transparent;
 }
-.first_part_logo{
-    background: linear-gradient(90deg, rgb(155, 155, 155), transparent) rgb(255, 255, 255);
-    background-clip: text;
-    color: transparent;
+.first_part_logo {
+  background: linear-gradient(90deg, rgb(155, 155, 155), transparent) rgb(255, 255, 255);
+  background-clip: text;
+  color: transparent;
 }
