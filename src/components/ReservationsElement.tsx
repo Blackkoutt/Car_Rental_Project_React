@@ -39,6 +39,7 @@ class ReservationsElement extends Component<ReservationProps, ReservationState>{
                 </td> 
             </tr>
             </>
+
         );
     }
 }

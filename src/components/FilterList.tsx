@@ -116,8 +116,12 @@ class FilterList extends React.Component<FilterListProps, FilterListState>{
         }
         return(
             <div className="filter">
+                <div>
                 <DefaultSelect label={"Kategoria"} id={"select_criteria"} values={values} onChange={this.onChange}/>
-                <Input label="Wyszukaj" type="text" id="search" placeholder="Wyszukaj samochód" onChange={this.onChange}/>
+                </div>
+                <div className="inputiilter">
+                <Input  label="Wyszukaj" type="text" id="search" placeholder="Wyszukaj samochód" onChange={this.onChange}/>
+                </div>
             </div>
         )
     }
