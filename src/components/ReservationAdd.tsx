@@ -11,7 +11,7 @@ import Input from './Input'
 import { DateValidator, EmailValidator, EndDateValidator, NameValidator, PhoneNumberValidator, ReservationDateValidator, StartDateValidator, SurnameValidator } from '../validators/validators';
 import FormError from './FormError';
 import { parseDate, convertDateForSaveToDb, mapGearbox } from '../helpers/helpers'
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 interface ReservationAddProps {
 }
@@ -23,6 +23,7 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
+    const navigate = useNavigate();
     const [phone_number, setPhoneNumber] = useState(0);
     const [start_of_reservation, setStartOfReservation] = useState('');
     const [end_of_reservation, setEndOfReservation] = useState('');
@@ -53,10 +54,6 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
             return 1;
         }
     }
-    useEffect(() => {
-        ValidateForm();
-        calculateTotalCost();
-    }, [name, surname, email, phone_number, start_of_reservation, end_of_reservation]);
     const onChange = async (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>)=> {
         const { id, value } = e.target;
         console.log('wartosc:', value);
@@ -84,38 +81,40 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
             default:
                 break;
         }
-
-        // ValidateForm();
-         //await calculateTotalCost();
     }
+
+    useEffect(() => {
+        ValidateForm();
+        calculateTotalCost();
+    }, [name, surname, email, phone_number, start_of_reservation, end_of_reservation]);
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         await ValidateForm();
-        await checkUsers();
-
-        if (errors.length !== 0) {
-            e.preventDefault();
-        }else{
+        await checkUsers();        
+    }
+    const addReservation=async(user:UserData|undefined)=>{
+        if (errors.length === 0 && user!==undefined) {
             const reservationAdd = new ReservationData({
-                carId: car?.Id,
+                carId: ParseToInt(carId),
                 userId: user?.Id,
                 start_of_reservation: convertDateForSaveToDb(start_of_reservation),
                 end_of_reservation: convertDateForSaveToDb(end_of_reservation),
                 total_cost: Number(total_cost)
             });
-
             await postReservation(reservationAdd);
-            await setSubmited(true);
-        }
+            navigate('/reservations');
+        }      
     }
+    useEffect(() => {
+        console.log("user", user);
+        addReservation(user);
+      }, [user]); 
 
     const checkUsers = async () => {
         try {
             const userFromService = await UserService.getUser(email);
-
-            if (userFromService) {
+            if (userFromService!==null) {
                 setUser(userFromService);
-                console.log('Użytkownik istnieje:', userFromService);
             } else {
                 const newUser = new UserData({
                     name: name,
@@ -123,9 +122,14 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
                     email: email,
                     phone_number: phone_number
                 });
-
-                await postUser(newUser);
-                await setUser(newUser);
+                try {
+                    const result = await UserService.postUser(newUser);
+                    newUser.Id=result.id;
+                    setUser(newUser);
+                    
+                } catch (error) {
+                    console.error('Error PUT data:', error);
+                }
                 console.log('Użytkownik o podanym adresie email nie istnieje.');
             }
         } catch (error) {
@@ -159,7 +163,7 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
         } 
         const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
         const totalCostValue = days * rental_cost;
-        await setTotalCost(totalCostValue);
+        setTotalCost(totalCostValue);
         
 
     };
@@ -167,7 +171,7 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
     const postReservation = async (reservation: ReservationData) => {
         try {
             const result = await ReservationService.postReservation(reservation);
-            console.log('POST reservation:', result);
+            console.log('POST res:', result);
         } catch (error) {
             console.error('Error PUT data:', error);
         }
@@ -186,7 +190,7 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
         <>
              {submited && <Navigate to="/" />}
             <div className="edit-outer-div">
-                <form onSubmit={onSubmit}>
+                <form>
                     <h3>Wypożyczenie </h3>
                     <div className="edit-inner-div">
                         <div className="half">
@@ -207,7 +211,7 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
                         <FormError key={index} message={value} />
                     ))}
                     <div>
-                        <input type="submit" value="Zatwierdź" />
+                        <input type="button" value="Zatwierdź"  onClick={()=>checkUsers()} />
                     </div>
                 </form>
             </div>

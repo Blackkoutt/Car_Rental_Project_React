@@ -21,7 +21,7 @@
 form>h3{
     animation: SlideBottom 1s ease forwards;
 }
-input[type="submit"]{
+input[type="button"]{
     font-size: 0.9rem;
     border: none;
     color:#fff;
@@ -33,7 +33,7 @@ input[type="submit"]{
     background: linear-gradient(90deg, rgb(82, 18, 192), transparent) #956ced;
     animation: SlideTop 1s ease forwards;
  }
- input[type="submit"]:hover{
+ input[type="button"]:hover{
      background-color: rgb(30, 233, 125);
      color: #fff;
  }

@@ -106,7 +106,7 @@ class Reservations extends React.Component<ReservationProps, ReservationState>{
         try {
             const result = await ReservationService.deleteReservation(this.state.deleteReservation?.Id);
             this.setState({
-                reservations: this.state.reservations,
+                reservations: this.state.reservations.filter(c => c!==this.state.deleteReservation),
                 showNotification:true,
                 deleteReservation: undefined
             });
