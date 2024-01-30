@@ -22,6 +22,23 @@ const IsCorrectDateValidator = (value: string): boolean => {
       console.log(maxDate);
       return (inputDate >= minDate && inputDate <= maxDate);
 }
+const IsStartDateCorrect = (value: string): boolean =>{
+    const inputDate = new Date(parseDate(value));
+    const nowDate = new Date();
+    return (inputDate>=nowDate);
+}
+const IsDatesCorrect = (value1: string, value2: string): boolean =>{
+    const startDate = new Date(parseDate(value1));
+    const endDate = new Date(parseDate(value2));
+
+    return(startDate<endDate);
+}
+const IsPhoneNumber = (value: string):boolean =>{
+    
+    const isValid = /^\d{9}$/.test(String(value));
+    return isValid;
+
+}
 const RequiredValidator = (value: string): boolean => { 
     return (value!==""&&value!==undefined);
 }
@@ -147,4 +164,77 @@ export const RentalCostValidator = (cost:string) : string[] =>{
     }
     return errors; 
 }
+export const NameValidator = (name:string) : string[] =>{
+    let errors:string[]=[];
+    if(!RequiredValidator(name)){
+        errors.push("Imie jest wymagane!");
+    }
+    if(!LengthValidator(name, 50)){
+        errors.push("Imie może mieć co najwyżej 50 znaków.");
+    }
+    if(!IsValueStartsWithUppercase(name)){
+        errors.push("Imie musi zaczynać się z dużej litery");
+    }
+
+    return errors; 
+}
+export const SurnameValidator = (surname:string) : string[] =>{
+    let errors:string[]=[];
+    if(!RequiredValidator(surname)){
+        errors.push("Nazwisko jest wymagane!");
+    }
+    if(!LengthValidator(surname, 50)){
+        errors.push("Nazwisko może mieć co najwyżej 50 znaków.");
+    }   
+     if(!IsValueStartsWithUppercase(surname)){
+        errors.push("Nazwisko musi zaczynać się z dużej litery");
+    }
+    return errors; 
+}
+export const EmailValidator = (email:string) : string[] =>{
+    let errors:string[]=[];
+    if(!RequiredValidator(email)){
+        errors.push("Email jest wymagany!");
+    }
+    if(!LengthValidator(email, 50)){
+        errors.push("Email może mieć co najwyżej 50 znaków.");
+    }
+    return errors; 
+}
+export const PhoneNumberValidator = (phone_number:string) : string[] =>{
+    let errors:string[]=[];
+    if(!RequiredValidator(phone_number)){
+        errors.push("Numer telefonu jest wymagany!");
+    }
+    if(!IsPhoneNumber(phone_number)){
+        errors.push("Numer musi miec 9 cyfr");
+    }
+    return errors; 
+}
+export const StartDateValidator = (start_of_reservation:string) : string[] =>{
+    let errors:string[]=[];
+    if(!RequiredValidator(start_of_reservation)){
+        errors.push("Data rozpoczęcia jest wymagana!");
+    }
+    if(!IsStartDateCorrect(start_of_reservation)){
+        errors.push("Data rozpoczęcia nie może być wcześniejsza niż dzisiejsza.");
+    }
+    return errors; 
+}
+export const EndDateValidator = (end_of_reservation:string) : string[] =>{
+    let errors:string[]=[];
+    if(!RequiredValidator(end_of_reservation)){
+        errors.push("Data zakończenia jest wymagana!");
+    }
+    return errors; 
+}
+export const ReservationDateValidator = (start_of_reservation:string, end_of_reservation:string) : string[] =>{
+    let errors:string[]=[];
+    if(!IsDatesCorrect(start_of_reservation, end_of_reservation)){
+        errors.push("Data zakończenia nie moze być wczescniejsza niz data rozpoczęcia!");
+    }
+    return errors; 
+}
+
+
 

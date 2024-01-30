@@ -8,7 +8,7 @@ import UserData from '../models/user';
 import UserService from '../services/UserService';
 import Select from './Select'
 import Input from './Input'
-import { DateValidator } from '../validators/validators';
+import { DateValidator, EmailValidator, EndDateValidator, NameValidator, PhoneNumberValidator, ReservationDateValidator, StartDateValidator, SurnameValidator } from '../validators/validators';
 import FormError from './FormError';
 import { parseDate, convertDateForSaveToDb, mapGearbox } from '../helpers/helpers'
 import { Navigate, useParams } from 'react-router-dom';
@@ -90,23 +90,22 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
     }
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
         await ValidateForm();
         await checkUsers();
 
-        if (errors.length === 0) {
+        if (errors.length !== 0) {
+            e.preventDefault();
+        }else{
             const reservationAdd = new ReservationData({
                 carId: car?.Id,
                 userId: user?.Id,
                 start_of_reservation: convertDateForSaveToDb(start_of_reservation),
                 end_of_reservation: convertDateForSaveToDb(end_of_reservation),
-                total_cost: Number(total_cost),
-                user: user,
-                car: car
+                total_cost: Number(total_cost)
             });
 
             await postReservation(reservationAdd);
-            setSubmited(true);
+            await setSubmited(true);
         }
     }
 
@@ -125,8 +124,8 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
                     phone_number: phone_number
                 });
 
-                postUser(newUser);
-                setUser(newUser);
+                await postUser(newUser);
+                await setUser(newUser);
                 console.log('Użytkownik o podanym adresie email nie istnieje.');
             }
         } catch (error) {
@@ -134,10 +133,16 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
         }
     }
 
-    const ValidateForm = () => {
-        // Logika walidacji formularza
+    const ValidateForm =async () => {
         const errorArray: string[] = [];
-        setErrors(errorArray);
+        errorArray.push(...NameValidator(name));
+        errorArray.push(...SurnameValidator(surname));
+        errorArray.push(...EmailValidator(email));
+        errorArray.push(...PhoneNumberValidator(phone_number.toString()));
+        errorArray.push(...StartDateValidator(start_of_reservation));
+        errorArray.push(...EndDateValidator(end_of_reservation));
+        errorArray.push(...ReservationDateValidator(start_of_reservation,end_of_reservation));
+        await setErrors(errorArray);
     }
 
     const calculateTotalCost = async () => {
@@ -154,7 +159,7 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
         } 
         const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
         const totalCostValue = days * rental_cost;
-        setTotalCost(totalCostValue);
+        await setTotalCost(totalCostValue);
         
 
     };

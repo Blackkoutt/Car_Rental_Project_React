@@ -237,6 +237,7 @@ router.post('/reservations', async (req, res, next) => {
     const add_res = await prisma.reservation.create({
       data: req.body
     })
+    console.log(req.body);
     res.json(add_res);
   }
   catch(error){
