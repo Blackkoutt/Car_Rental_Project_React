@@ -31,6 +31,7 @@ interface CarAddState {
     submited:boolean
 }
 
+
 // Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
 interface CarAddProps{}
 
@@ -207,6 +208,7 @@ class CarAdd extends Component<CarAddProps, CarAddState>{
                                 <Select label="Skrzynia biegów:" id="gearbox" gearbox={["Automatyczna","Manualna"]} selected_gearbox={this.state.gearbox} onChange={this.onChange}></Select>
                                 <Select label="Typ:" id="type" type_names={type_names} selected_type={this.state.type} onChange={this.onChange}></Select>
                             </div>
+                            
                         </div>
                         {this.state.errors?.map((value: string, index: number) => (   
                             <FormError key={index} message={value} />

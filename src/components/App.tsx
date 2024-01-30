@@ -3,11 +3,14 @@ import '../css/App.css';
 import CarList from './CarList'
 import NotFound from './NotFound'
 import CarAdd from './CarAdd'
-import {Route,Routes} from 'react-router-dom';
+import Reservations from './Reservations'
+import {BrowserRouter as Router,Route,Routes} from 'react-router-dom';
 import Logo from './Logo';
 import NavBar from './NavBar';
 import MainInfo from './MainInfo';
 import Footer from './Footer';
+import ReservationAdd from './ReservationAdd';
+import CarDetails from './CarDetails';
 
 // Komponent nadrzędny renderujący content strony
 // Komponent ten definiuje routing
@@ -31,6 +34,8 @@ function App() {
             <Routes>
               <Route path="/" element={<CarList/>} />
               <Route path="/add" element={<CarAdd/>} />
+              <Route path="/reservations" element = {<Reservations/>}/>
+              <Route path="/addRes/:carId" element={<ReservationAdd/>} />
               <Route Component={NotFound} />
             </Routes>
           </section>

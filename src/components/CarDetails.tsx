@@ -1,6 +1,8 @@
 import '../css/CarDetails.css';
 import CarData from '../models/car-data';
 import CarDetailsItem from './CarDetailIsItem';
+import ReservationAdd from './ReservationAdd';
+import { Link } from 'react-router-dom';
 
 // Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
 interface CarDetailsProps {
@@ -9,8 +11,9 @@ interface CarDetailsProps {
 }
 
 // Komponent wyświetlający wszytskie informacje na temat danego samochodu
-function CarDetails(props:CarDetailsProps) {
-    const {car} = props;
+function CarDetails(props: CarDetailsProps) {
+    const { car } = props;
+    console.log('Samochód istnieje:', car.Id);
     return (
         <>
             <div className="car-details-container">
@@ -25,7 +28,7 @@ function CarDetails(props:CarDetailsProps) {
                     <CarDetailsItem label="Skrzynia biegów:  " value={ car.GearBox ? 'Automatyczna' : 'Manualna' }></CarDetailsItem>
                     <CarDetailsItem label="Typ: " value={ car.Type?.Name }></CarDetailsItem>
                     <div className="action-buttons">
-                        <a href="#"><button className="reserve-button">Wynajmij</button></a>
+                    <Link to={`/addRes/${car.Id}`} className="reserve-button">Wynajmij</Link>
                     </div>
                 </div>
                 <div className="back_button">

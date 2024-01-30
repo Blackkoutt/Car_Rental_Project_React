@@ -35,7 +35,7 @@ router.get('/cars/:id', async (req, res, next) => {
     res.json(car);
   }
   catch(error){
-    console.log(`Error GET /cars/${id}`, error);
+   // console.log(`Error GET /cars/${id}`, error);
     next(error);
   }
 });
@@ -69,7 +69,7 @@ router.delete('/cars/:id', async (req, res, next) => {
     res.json(deletedCar);
   }
   catch(error){
-    console.log(`Error DELETE /cars/${id}`, error);
+   // console.log(`Error DELETE /cars/${id}`, error);
     next(error);
   }
 });
@@ -92,7 +92,7 @@ router.patch('/cars/:id', async (req, res, next) => {
     res.json(car);
 
   }catch(error){
-    console.log(`Error PATCH /cars/${id}`, error);
+   // console.log(`Error PATCH /cars/${id}`, error);
     next(error);
   }
 });
@@ -116,7 +116,7 @@ router.put('/cars/:id', async (req, res, next) => {
     res.json(car);
 
   }catch(error){
-    console.log(`Error PUT /cars/${id}`, error);
+    //console.log(`Error PUT /cars/${id}`, error);
     next(error);
   }
 });
@@ -159,7 +159,7 @@ router.get('/types/:name', async (req, res, next) => {
     res.json(type);
   }
   catch(error){
-    console.log(`Error GET /types/${name}`, error);
+   // console.log(`Error GET /types/${name}`, error);
     next(error);
   }
 });
@@ -188,7 +188,7 @@ router.get('/users/:email', async (req, res, next) => {
     res.json(user);
   }
   catch(error){
-    console.log(`Error GET /users/${email}`, error);
+    //console.log(`Error GET /users/${email}`, error);
     next(error);
   }
 });
@@ -247,6 +247,7 @@ router.post('/reservations', async (req, res, next) => {
 
 
 // DELETE reservation
+
 router.delete('/reservations/:userId/:carId', async (req, res, next) => {
   try{
     const {userId, carId} = req.params
@@ -262,10 +263,26 @@ router.delete('/reservations/:userId/:carId', async (req, res, next) => {
     res.json(deletedReservation);
   }
   catch(error){
-    console.log(`Error DELETE /reservation/${userId}/${carId}`, error);
+   //console.log(`Error DELETE /reservation/${userId}/${carId}`, error);
     next(error);
   }
 });
 
+// DELETE reservation
+router.delete('/reservations/:id', async (req, res, next) => {
+  try{
+    const {id} = req.params
+    const deletedReservation = await prisma.reservation.delete({
+      where:{
+        id: Number(id)
+      }
+    })
+    res.json(deletedReservation);
+  }
+  catch(error){
+   // console.log(`Error DELETE /cars/${id}`, error);
+    next(error);
+  }
+});
 module.exports = router;
 

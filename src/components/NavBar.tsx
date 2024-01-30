@@ -15,7 +15,7 @@ function NavBar(props : MainInfoProps) {
         <ul className="nav-list">
             <li><Link to="/">Strona główna</Link></li>
             <li onClick={()=>scrollToElement(props.element)} ><Link to="/add">Dodaj pojazd</Link></li>
-            <li><a href="#">Wypożyczenia</a></li>
+            <li onClick={()=>scrollToElement(props.element)}><Link to="/reservations">Wypożyczenia</Link></li>
           </ul>
       </nav>
     )
