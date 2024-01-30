@@ -24,7 +24,7 @@ function ReservationDetails(props:ReservationDetailsProps) {
             <ReservationDetailsItem label="Koszt wypozyczenia: " value={`${reservation.Total_cost.toString()} zł`}></ReservationDetailsItem>
             </div>
         <div className="back_button">
-                    <button onClick={() => props.changeDetailsVisibility() }>Wróć</button>
+                    <button title="Wróć do poprzedniego widoku" onClick={() => props.changeDetailsVisibility() }>Wróć</button>
                 </div>
         </div>
         </>

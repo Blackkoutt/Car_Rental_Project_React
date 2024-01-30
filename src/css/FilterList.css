@@ -1,4 +1,4 @@
-.filter {
+.filter_list {
   display: flex;
   flex-direction: row;
   width: 55vw;
@@ -7,31 +7,23 @@
   background-color: rgb(0, 0, 0, 0.6);
   border-radius: 8px;
   border: 0.2rem solid rgb(104, 57, 184);
-  padding: 1.6rem 3rem 1rem 3rem;
+  padding: 1.6rem 2rem 1rem 2rem;
   margin-bottom: 1rem;
 }
-@media (max-width: 1340px) {
-  .filter {
-    width: 65vw;
-  }
-}
-@media (max-width: 1140px) {
-  .filter {
+@media (max-width: 1250px) {
+  .filter_list {
     width: 70vw;
     padding: 1.6rem 1rem 1rem 1rem;
   }
 }
 @media (max-width: 910px) {
-  .filter {
+  .filter_list {
     width: 80vw;
     padding: 1.6rem 1rem 1rem 1rem;
   }
 }
 @media (max-width: 800px) {
-  .filter {
+  .filter_list {
     flex-direction: column;
   }
-}
-.inputfilter{
-  margin-left: 1 rem;
 }

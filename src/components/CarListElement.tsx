@@ -60,7 +60,6 @@ class CarListElement extends Component<CarProps, CarState>{
                 <td>{car.AvailableCount}</td>
                 <td>{car.RentalCost} zł</td>
                 <td>{car.Type?.SeatsCount}</td>
-                <td>{car.GearBox ? 'Automatyczna' : 'Manualna' }</td>
                 <td>{car.Type?.Name}</td>
                 <td className="action_buttons">   
                     <button ref={this.editButtonRef} onClick={this.setEditCar} className="modify_button">Modyfikuj</button>

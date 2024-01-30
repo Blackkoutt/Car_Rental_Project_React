@@ -16,7 +16,9 @@ interface CarsState {
     detailsCar?: CarData,
     deleteCar?:CarData,
     defaultCars: CarData[]
-    showNotification: boolean
+    showNotification: boolean,
+    textDialog:string,
+    textNotification:string
 }
 
 // Interfejs propsów definiujący typy właściwości przyjmowane przez komponent
@@ -33,7 +35,9 @@ class CarList extends React.Component<CarsProps, CarsState>{
             detailsCar: undefined,
             deleteCar: undefined,
             defaultCars: [],
-            showNotification: false
+            showNotification: false,
+            textDialog: "",
+            textNotification: ""
         };
     }
 
@@ -115,7 +119,9 @@ class CarList extends React.Component<CarsProps, CarsState>{
     setDeleteCar = (car:CarData):void => {
         document.title="Usuwanie pojazdu - CarRental"
         this.setState({
-            deleteCar: car
+            deleteCar: car,
+            textDialog: `Czy napewno chcesz usunąć samochód ${car?.Manufacturer?.Name} ${car?.Model} ?`,
+            textNotification: `Pomyślnie usunięto samochód ${car?.Manufacturer?.Name} ${car?.Model}`
         }, ()=>{
             this.dialogRef.current?.showModal();
         })
@@ -162,9 +168,9 @@ class CarList extends React.Component<CarsProps, CarsState>{
 
     // Metoda renderująca komponent
     render(){
-        const {cars, deleteCar} = this.state
-        const textDialog:string = `Czy napewno chcesz usunąć samochód ${deleteCar?.Manufacturer?.Name} ${deleteCar?.Model} ?`
-        const textNotification:string = `Pomyślnie usunięto samochód ${deleteCar?.Manufacturer?.Name} ${deleteCar?.Model}`
+        const {cars, deleteCar, textDialog, textNotification} = this.state
+        //const textDialog:string = `Czy napewno chcesz usunąć samochód ${deleteCar?.Manufacturer?.Name} ${deleteCar?.Model} ?`
+        //const textNotification:string = `Pomyślnie usunięto samochód ${deleteCar?.Manufacturer?.Name} ${deleteCar?.Model}`
         
         return(
             <article id="car_list">
@@ -184,7 +190,6 @@ class CarList extends React.Component<CarsProps, CarsState>{
                                         <th scope="col">Liczba dostępnych</th>
                                         <th scope="col">Koszt wynajęcia</th>
                                         <th scope="col">Liczba miejsc</th>
-                                        <th scope="col">Skrzynia biegów</th>
                                         <th scope="col">Typ</th>
                                         <th scope="col">Akcja</th>
                                         </tr>

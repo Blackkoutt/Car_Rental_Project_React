@@ -191,7 +191,7 @@ const ReservationAdd: React.FC<ReservationAddProps> = () => {
              {submited && <Navigate to="/" />}
             <div className="edit-outer-div">
                 <form>
-                    <h3>Wypożyczenie </h3>
+                    <h3 className="res_title">Wypożyczenie </h3>
                     <div className="edit-inner-div">
                         <div className="half">
                             <Input label="Imie:" id="name" type="text" value={name} onChange={(e)=>onChange(e)} />
